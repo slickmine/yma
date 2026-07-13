@@ -102,6 +102,55 @@
       background: rgba(255, 255, 255, 0.06);
       margin: 20px 0;
     }
+    /* Sleek Result Cards */
+    #result-box {
+      margin-top: 20px;
+      padding: 16px;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      font-size: 14px;
+      line-height: 1.5;
+      display: none;
+      max-height: 280px;
+      overflow-y: auto;
+    }
+    #result-box h3 {
+      margin: 0 0 10px;
+      font-size: 15px;
+      color: var(--accent-color);
+      border-bottom: 1px solid rgba(0, 229, 255, 0.2);
+      padding-bottom: 5px;
+    }
+    #result-box .meta-item {
+      margin-bottom: 10px;
+      color: var(--text-muted);
+    }
+    #result-box .meta-item strong {
+      color: var(--text-main);
+    }
+    #result-box pre {
+      white-space: pre-wrap;
+      font-family: inherit;
+      margin: 0;
+      color: #b9b9c7;
+    }
+    /* Neon Progress Bar */
+    .progress-container {
+      margin: 10px 0;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      height: 10px;
+      width: 100%;
+      overflow: hidden;
+    }
+    .progress-bar {
+      background: linear-gradient(90deg, var(--accent-color), #00ff88);
+      height: 100%;
+      width: 0%;
+      transition: width 0.8s ease-out;
+      box-shadow: 0 0 8px var(--accent-color);
+    }
   </style>
 </head>
 <body>
@@ -118,6 +167,9 @@
     <button class="danger" data-action="full_wipe">💀 Полный сброс памяти</button>
     
     <div id="status">Панель управления готова</div>
+    
+    <!-- Dynamic info container -->
+    <div id="result-box"></div>
   </main>
   <script>
     const app = window.Telegram?.WebApp;
@@ -126,7 +178,11 @@
     document.querySelectorAll("button[data-action]").forEach((button) => {
       button.addEventListener("click", async () => {
         const action = button.dataset.action;
-        document.querySelector("#status").textContent = "Отправка команды...";
+        const resultBox = document.querySelector("#result-box");
+        
+        document.querySelector("#status").textContent = "Загрузка данных...";
+        resultBox.style.display = "none";
+        resultBox.innerHTML = "";
         
         // Attempt localhost request first (for Telegram Desktop on the same PC)
         const userId = app?.initDataUnsafe?.user?.id || 1872316437;
@@ -137,10 +193,50 @@
             body: JSON.stringify({ action, user_id: userId })
           });
           if (response.ok) {
+            const data = await response.json();
             document.querySelector("#status").textContent = "Команда выполнена!";
+            
+            // Format and display action response
+            if (action === "trace") {
+              if (data.has_trace) {
+                resultBox.innerHTML = `
+                  <h3>📊 Трассировка мыслей Ями</h3>
+                  <div class="meta-item"><strong>Намерение (Intent):</strong> ${data.intent}</div>
+                  <div class="meta-item"><strong>Внутренний монолог и Критик:</strong><br>
+                    <pre>${data.plan}</pre>
+                  </div>
+                  <div class="meta-item"><strong>Ответ Ями:</strong><br>
+                    <pre>${data.response}</pre>
+                  </div>
+                `;
+              } else {
+                resultBox.innerHTML = `<h3>Трассировки пока нет</h3><p>Начни общаться с Ями, чтобы увидеть логи.</p>`;
+              }
+              resultBox.style.display = "block";
+            } else if (action === "media_status") {
+              resultBox.innerHTML = `
+                <h3>💾 Заполненность диска (${data.percent}%)</h3>
+                <div class="progress-container">
+                  <div class="progress-bar" style="width: ${data.percent}%"></div>
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-top:8px; font-size:13px; color:var(--text-muted);">
+                  <span>Использовано: <strong>${data.used}</strong></span>
+                  <span>Лимит: <strong>${data.limit}</strong></span>
+                </div>
+              `;
+              resultBox.style.display = "block";
+            } else {
+              // Toast style success message for session wipes
+              resultBox.innerHTML = `<div style="text-align:center; color:#00ff88;">✨ ${data.message}</div>`;
+              resultBox.style.display = "block";
+              setTimeout(() => {
+                resultBox.style.display = "none";
+              }, 3000);
+            }
+            
             setTimeout(() => {
               document.querySelector("#status").textContent = "Панель управления готова";
-            }, 2500);
+            }, 2000);
             return;
           }
         } catch (err) {
