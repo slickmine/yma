@@ -124,9 +124,30 @@
     app?.ready();
     app?.expand();
     document.querySelectorAll("button[data-action]").forEach((button) => {
-      button.addEventListener("click", () => {
+      button.addEventListener("click", async () => {
         const action = button.dataset.action;
         document.querySelector("#status").textContent = "Отправка команды...";
+        
+        // Attempt localhost request first (for Telegram Desktop on the same PC)
+        const userId = app?.initDataUnsafe?.user?.id || 1872316437;
+        try {
+          const response = await fetch("http://127.0.0.1:18765/api", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ action, user_id: userId })
+          });
+          if (response.ok) {
+            document.querySelector("#status").textContent = "Команда выполнена!";
+            setTimeout(() => {
+              document.querySelector("#status").textContent = "Панель управления готова";
+            }, 2500);
+            return;
+          }
+        } catch (err) {
+          console.log("Localhost API unavailable, falling back to sendData", err);
+        }
+
+        // Fallback: use standard Telegram sendData (works from keyboard buttons)
         if (!app) {
           document.querySelector("#status").textContent = "Ошибка: откройте из Telegram";
           return;
