@@ -17,7 +17,8 @@
     .columns{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}.memory-list,.timeline{display:grid;gap:9px}.memory,.event{padding:13px 14px;border-radius:15px;background:rgba(255,255,255,.028);border:1px solid var(--line);transition:.2s}.memory:hover,.event:hover{border-color:rgba(88,232,255,.28);transform:translateY(-1px)}.memory-top{display:flex;gap:8px;align-items:center}.tag{font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--cyan);padding:3px 7px;border-radius:10px;background:rgba(88,232,255,.08)}.memory h3{font-size:13px;margin:8px 0 4px}.memory p,.event p{margin:0;color:var(--muted);font-size:12px}.memory-actions{display:flex;justify-content:flex-end;margin-top:8px}.ghost{border:0;background:transparent;color:var(--muted);font-size:11px;cursor:pointer}.ghost:hover{color:var(--pink)}.event{display:grid;grid-template-columns:8px 1fr;gap:10px}.event-mark{width:7px;height:7px;border-radius:50%;background:var(--violet);margin-top:5px;box-shadow:0 0 10px var(--violet)}
     .control-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.control{padding:13px;border-radius:15px;background:rgba(255,255,255,.025);border:1px solid var(--line)}.control label{display:flex;justify-content:space-between;font-size:12px;margin-bottom:9px}.control output{color:var(--cyan)}input[type=range]{width:100%;accent-color:var(--cyan)}.topics{display:flex;gap:8px;overflow:auto;padding-bottom:2px}.topic{min-width:220px;padding:12px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.025)}.topic p{margin:0 0 8px;color:var(--muted);font-size:12px}
     .actions{position:sticky;bottom:12px;margin-top:22px;display:flex;gap:9px;padding:9px;border-radius:18px;background:rgba(10,11,18,.86);border:1px solid var(--line);backdrop-filter:blur(18px);box-shadow:0 12px 40px rgba(0,0,0,.35)}button{flex:1;border:1px solid var(--line);border-radius:13px;padding:12px;background:rgba(255,255,255,.04);color:var(--text);font-weight:700;cursor:pointer;transition:.2s}button:hover{transform:translateY(-1px);border-color:rgba(88,232,255,.35)}button.primary{background:linear-gradient(110deg,rgba(88,232,255,.18),rgba(159,124,255,.2));border-color:rgba(88,232,255,.25)}button.danger{color:#ff7ba9}.toast{position:fixed;left:50%;bottom:88px;transform:translate(-50%,20px);opacity:0;padding:10px 16px;border-radius:12px;background:#171924;border:1px solid var(--line);transition:.25s;pointer-events:none;z-index:5}.toast.show{opacity:1;transform:translate(-50%,0)}.empty{color:var(--muted);padding:18px;text-align:center}.skeleton{height:72px;border-radius:15px;background:linear-gradient(90deg,rgba(255,255,255,.03),rgba(255,255,255,.08),rgba(255,255,255,.03));background-size:220% 100%;animation:shine 1.3s infinite}@keyframes shine{to{background-position:-220% 0}}
-    @media(max-width:760px){.hero,.columns{grid-template-columns:1fr}.meters{grid-template-columns:repeat(2,1fr)}.shell{padding-top:16px}.mood{font-size:27px}.actions{overflow:auto}button{min-width:115px}}
+    .intimacy{position:relative;overflow:hidden}.intimacy:before{content:"";position:absolute;inset:-40% auto auto 40%;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(255,79,154,.22),transparent 70%);pointer-events:none}.intimacy-head{display:flex;gap:16px;align-items:stretch;flex-wrap:wrap}.intimacy-badge{min-width:118px;padding:16px 14px;border-radius:18px;background:linear-gradient(160deg,rgba(255,79,154,.22),rgba(159,124,255,.12));border:1px solid rgba(255,79,154,.28);text-align:center}.intimacy-badge .lvl{font-size:34px;font-weight:900;line-height:1;background:linear-gradient(120deg,var(--pink),var(--violet),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}.intimacy-badge .name{margin-top:6px;font-weight:800;font-size:13px}.intimacy-main{flex:1;min-width:200px}.intimacy-main .yami{font-size:15px;margin:6px 0 10px;line-height:1.35}.unlock-row{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 12px}.chip{font-size:11px;padding:5px 9px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--muted)}.chip.hot{border-color:rgba(255,79,154,.35);color:#ffb3d0;background:rgba(255,79,154,.08)}.chip.ok{border-color:rgba(114,246,187,.3);color:var(--ok)}.xp-track{height:10px;border-radius:99px;background:rgba(255,255,255,.06);overflow:hidden;border:1px solid var(--line)}.xp-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--pink),var(--violet),var(--cyan));box-shadow:0 0 18px rgba(255,79,154,.35);transition:width .8s cubic-bezier(.2,.8,.2,1)}.xp-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:6px}.lib-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.lib-stat{padding:10px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--line);text-align:center}.lib-stat b{display:block;font-size:18px}.lib-stat span{font-size:10px;color:var(--muted)}.factor-list,.gain-list,.ladder,.block-list{display:grid;gap:8px;margin-top:10px}.factor{display:grid;grid-template-columns:1fr auto;gap:6px 10px;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.028);border:1px solid var(--line)}.factor .bar{grid-column:1/-1;height:5px;border-radius:9px;background:rgba(255,255,255,.06);overflow:hidden}.factor .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),var(--pink));border-radius:9px}.factor small{grid-column:1/-1;color:var(--muted);font-size:11px}.ladder{grid-template-columns:repeat(5,1fr)}.rung{padding:8px 6px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.02);text-align:center;font-size:10px;color:var(--muted)}.rung.on{border-color:rgba(255,79,154,.4);color:var(--text);background:rgba(255,79,154,.1);box-shadow:0 0 16px rgba(255,79,154,.12)}.rung b{display:block;font-size:13px;margin-bottom:2px}.block-list li,.gain-list li{list-style:none;padding:9px 12px;border-radius:12px;background:rgba(255,255,255,.025);border:1px solid var(--line);font-size:12px;color:var(--muted)}.block-list li{border-color:rgba(255,79,154,.15)}.gain-list li b{color:var(--ok)}.gain-list li.neg b{color:#ff7ba9}
+    @media(max-width:760px){.hero,.columns{grid-template-columns:1fr}.meters{grid-template-columns:repeat(2,1fr)}.shell{padding-top:16px}.mood{font-size:27px}.actions{overflow:auto}button{min-width:115px}.ladder{grid-template-columns:repeat(2,1fr)}.lib-grid{grid-template-columns:repeat(3,1fr)}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
   </style>
 </head>
@@ -28,6 +29,8 @@
       <article class="card"><div class="eyebrow">текущее состояние</div><div class="mood" id="mood">загружаю…</div><div class="reason" id="reason">Собираю внутреннюю динамику Ями</div></article>
       <article class="card status-grid"><div class="stat"><b id="memCount">—</b><span>активных воспоминаний</span></div><div class="stat"><b id="logCount">—</b><span>сообщений в истории</span></div><div class="stat"><b id="rawCount">—</b><span>ждут консолидации</span></div><div class="stat"><b id="mediaCount">—</b><span>описаний медиа</span></div></article>
     </section>
+    <div class="section-head"><h2>Уровень откровенности</h2><span>что Ями готова показать · 1–10</span></div>
+    <section class="card intimacy" id="intimacy"><div class="empty">Загружаю близость…</div></section>
     <div class="section-head"><h2>Эмоциональный контур</h2><span>изменяется после событий</span></div><section class="meters" id="meters"></section>
     <div class="section-head"><h2>Органичность</h2><span id="styleHint">профиль речи</span></div><section class="card control-grid" id="controls"></section>
     <div class="section-head"><h2>Незавершённые темы</h2><span>Ями сможет к ним вернуться</span></div><section class="topics" id="topics"></section>
@@ -35,20 +38,62 @@
       <div><div class="section-head"><h2>Память</h2><span>самое важное</span></div><div class="card memory-list" id="memories"><div class="skeleton"></div><div class="skeleton"></div></div></div>
       <div><div class="section-head"><h2>Последние переходы</h2><span>почему изменилось настроение</span></div><div class="card timeline" id="events"><div class="skeleton"></div><div class="skeleton"></div></div></div>
     </section>
-    <nav class="actions"><button class="primary" data-action="consolidate">Собрать память</button><button data-action="new_session">Новая сессия</button><button class="danger" data-action="full_wipe">Полный сброс</button></nav>
+    <div class="section-head"><h2>Каналы (следить + обсуждать)</h2><span id="ch-hint">друзья / приватные</span></div>
+    <section class="card" id="channels-box">
+      <div class="control-grid" style="margin-bottom:12px">
+        <div class="control"><label><span>кличка для Ями</span></label>
+          <input id="ch-nick" placeholder="мворлд" style="width:100%;margin-top:6px;background:#12141f;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:8px">
+        </div>
+        <div class="control"><label><span>@ / id / ссылка</span></label>
+          <input id="ch-peer" placeholder="@channel или -100…" style="width:100%;margin-top:6px;background:#12141f;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:8px">
+        </div>
+        <div class="control"><label><span>макс обсуждений/день</span></label>
+          <input id="ch-max" type="number" min="1" max="20" value="4" style="width:100%;margin-top:6px;background:#12141f;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:8px">
+        </div>
+        <div class="control"><label><span>заметка</span></label>
+          <input id="ch-notes" placeholder="твой друг, шитпосты" style="width:100%;margin-top:6px;background:#12141f;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:8px">
+        </div>
+        <button class="primary" id="btn-add-channel" style="grid-column:1/-1">Добавить канал</button>
+      </div>
+      <div class="memory-list" id="channel-list"><div class="empty">пока пусто</div></div>
+      <div class="section-head" style="margin:14px 0 6px"><h2 style="font-size:13px">Свежие посты</h2><span>что Ями уже видела</span></div>
+      <div class="timeline" id="channel-posts"><div class="empty">—</div></div>
+      <p style="margin:10px 0 0;font-size:11px;color:var(--muted)" id="ch-telethon">чтение приватных: нужна сессия Telethon на сервере (акк-участник)</p>
+    </section>
+    <div class="section-head"><h2>Модели</h2><span>текст DeepSeek · зрение Gemini</span></div>
+    <section class="card control-grid" id="models">
+      <div class="control"><label><span>чат / текст</span><output id="out-model-text">—</output></label>
+        <select id="sel-text" style="width:100%;margin-top:8px;background:#12141f;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:8px"></select>
+        <input id="custom-text" placeholder="или свой slug" style="width:100%;margin-top:8px;background:#12141f;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:8px">
+      </div>
+      <div class="control"><label><span>фото / видео (vision)</span><output id="out-model-media">—</output></label>
+        <select id="sel-media" style="width:100%;margin-top:8px;background:#12141f;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:8px"></select>
+        <input id="custom-media" placeholder="или свой slug" style="width:100%;margin-top:8px;background:#12141f;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:8px">
+      </div>
+      <button class="primary" id="btn-save-models" style="grid-column:1/-1">Сохранить модели</button>
+      <p style="grid-column:1/-1;margin:0;font-size:11px;color:var(--muted)" id="model-hint">чат отвечает текстовой моделью; Gemini только расшифровывает кадр/речь в плотный отчёт</p>
+    </section>
+    <div class="section-head"><h2>Команды</h2><span>то же что в чате</span></div>
+    <nav class="actions" style="position:relative;flex-wrap:wrap">
+      <button class="primary" data-action="consolidate">Собрать память</button>
+      <button data-action="new_session">Новая сессия</button>
+      <button data-action="sleep">Sleep</button>
+      <button data-action="wake">Wake</button>
+      <button data-action="media_status">Медиа %</button>
+      <button data-action="trace">Trace</button>
+      <button class="danger" data-action="premiere">Premiere</button>
+      <button class="danger" data-action="full_wipe">Полный wipe</button>
+    </nav>
+    <p style="margin:10px 2px 0;font-size:11px;color:var(--muted)" id="sleep-line">сон: —</p>
   </main><div class="toast" id="toast"></div>
   <script>
     const tg = window.Telegram?.WebApp;
     tg?.ready();
     tg?.expand();
-    // API resolution for GitHub Pages + local bot:
-    // 1) ?api=... or window.YAMI_API_URL
-    // 2) same-origin /api (when bot serves this page)
-    // 3) http://127.0.0.1:18765/api (Telegram Desktop on the same PC)
-    // Simple actions fall back to tg.sendData when no HTTP API is reachable.
+    // API: ?api=https://tunnel/api  |  same-origin  |  127.0.0.1 (Desktop only)
     const configuredApi = (new URLSearchParams(location.search).get('api') || window.YAMI_API_URL || '').trim();
     const userId = tg?.initDataUnsafe?.user?.id || 1872316437;
-    const SENDDATA_ACTIONS = new Set(['new_session', 'full_wipe', 'media_status', 'trace', 'consolidate']);
+    const SENDDATA_ACTIONS = new Set(['new_session', 'full_wipe', 'media_status', 'trace', 'consolidate', 'sleep', 'wake', 'premiere']);
     let API = null;
     let lastDashboard = null;
 
@@ -144,6 +189,8 @@
       document.querySelector('#logCount').textContent = '—';
       document.querySelector('#rawCount').textContent = '—';
       document.querySelector('#mediaCount').textContent = '—';
+      document.querySelector('#intimacy').innerHTML =
+        '<div class="empty">Уровень откровенности недоступен без API бота</div>';
       document.querySelector('#meters').innerHTML = '';
       document.querySelector('#controls').innerHTML =
         '<div class="empty">Слайдеры органичности появятся после подключения к API</div>';
@@ -156,6 +203,146 @@
         '<div class="empty">Переходы недоступны без API</div>';
     }
 
+    function renderIntimacy(i) {
+      const root = document.querySelector('#intimacy');
+      if (!i) {
+        root.innerHTML = '<div class="empty">Нет данных по близости — обнови бота</div>';
+        return;
+      }
+      const xp = i.xp_progress || {};
+      const lib = i.library || {};
+      const next = i.next || {};
+      const factors = (i.components || []).map(c => {
+        const pct = Math.max(0, Math.min(100, Number(c.pct) || 0));
+        const pts = c.points ?? 0;
+        return `<article class="factor">
+          <div><b>${esc(c.label)}</b></div>
+          <div>${esc(pts)}${c.id === 'xp' ? ' ур.XP' : ' pts'}</div>
+          <div class="bar"><i style="width:${pct}%"></i></div>
+          <small>${esc(c.how || '')}</small>
+        </article>`;
+      }).join('');
+      const ladder = (i.levels || []).map(l =>
+        `<div class="rung ${l.unlocked ? 'on' : ''}"><b>${l.level}/10</b>${esc(l.name)}</div>`
+      ).join('');
+      const blockers = (i.blockers || []).map(b => `<li>${esc(b)}</li>`).join('')
+        || '<li>держи темп — следующий уровень близко</li>';
+      const gains = (i.recent_gains || []).slice(0, 8).map(g => {
+        const amt = Number(g.amount) || 0;
+        const cls = amt < 0 ? 'neg' : '';
+        const sign = amt > 0 ? '+' : '';
+        return `<li class="${cls}"><b>${sign}${amt} XP</b> · ${esc(g.reason || g.source || 'событие')}
+          <span style="float:right;opacity:.6">${esc((g.created_at || '').slice(0, 16))}</span></li>`;
+      }).join('') || '<li>пиши Ями — здесь появятся начисления за близость</li>';
+      const eng = (i.engagement || []).map(e =>
+        `<span class="chip ok">+${e.delta} · ${esc(e.label)} · ${esc(e.detail)}</span>`
+      ).join('');
+
+      root.innerHTML = `
+        <div class="intimacy-head">
+          <div class="intimacy-badge">
+            <div class="lvl">${esc(i.level)}/10</div>
+            <div class="name">${esc(i.name)}</div>
+            <div class="chip hot" style="margin-top:8px;display:inline-block">пик ${esc(i.peak_level)}/10</div>
+          </div>
+          <div class="intimacy-main">
+            <div class="eyebrow">что я готова показать</div>
+            <div class="yami">${esc(i.yami_line)}</div>
+            <div class="unlock-row">
+              <span class="chip hot">открыто: ${esc(i.unlock)}</span>
+              <span class="chip">потолок чувств ${esc(i.relationship_ceiling)}/10</span>
+              <span class="chip">XP ${esc(i.xp)} · ур.XP ${esc(i.xp_level)}</span>
+            </div>
+            <div class="xp-track"><div class="xp-fill" style="width:${xp.pct || 0}%"></div></div>
+            <div class="xp-meta">
+              <span>прогресс XP к след. порогу</span>
+              <span>${xp.remaining != null ? xp.remaining + ' XP осталось' : '—'}</span>
+            </div>
+            ${next.same ? '' : `<p style="margin:10px 0 0;color:var(--muted);font-size:12px">дальше <b style="color:var(--text)">${esc(next.level)}/10 · ${esc(next.name)}</b> — ${esc(next.unlock)}</p>`}
+            <div class="lib-grid">
+              <div class="lib-stat"><b>${esc(lib.available ?? '—')}</b><span>фото доступно</span></div>
+              <div class="lib-stat"><b>${esc(lib.locked ?? '—')}</b><span>ещё закрыто</span></div>
+              <div class="lib-stat"><b>${esc(lib.total_scored ?? '—')}</b><span>в библиотеке</span></div>
+            </div>
+            ${eng ? `<div class="unlock-row" style="margin-top:10px">${eng}</div>` : ''}
+          </div>
+        </div>
+        <div class="section-head" style="margin:18px 0 0"><h2 style="font-size:13px">Лестница 1–10</h2><span>подсвечено = открыто</span></div>
+        <div class="ladder">${ladder}</div>
+        <div class="section-head" style="margin:16px 0 0"><h2 style="font-size:13px">За счёт чего</h2><span>формула потолка + XP</span></div>
+        <div class="factor-list">${factors}</div>
+        <div class="section-head" style="margin:16px 0 0"><h2 style="font-size:13px">Как поднять</h2><span>что мешает сейчас</span></div>
+        <ul class="block-list">${blockers}</ul>
+        <div class="section-head" style="margin:16px 0 0"><h2 style="font-size:13px">Недавние начисления</h2><span>живой лог близости</span></div>
+        <ul class="gain-list">${gains}</ul>
+        <p style="margin:12px 0 0;font-size:11px;color:var(--muted)">${esc(i.scale_note || '')}. Слайдеры флирт/RP ниже тоже двигают потолок.</p>
+      `;
+    }
+
+    function renderChannels(list, posts, telethonReady) {
+      const hint = document.querySelector('#ch-hint');
+      if (hint) hint.textContent = (list && list.length) ? `${list.length} подключено` : 'друзья / приватные';
+      const tel = document.querySelector('#ch-telethon');
+      if (tel) tel.textContent = telethonReady
+        ? 'Telethon: сессия есть — можно читать посты с сервера'
+        : 'чтение приватных: на сервере TELEGRAM_API_ID/HASH + TELETHON_SESSION (акк в канале). Добавить канал можно уже сейчас — Ями увидит список.';
+      const box = document.querySelector('#channel-list');
+      if (!box) return;
+      if (!list || !list.length) {
+        box.innerHTML = '<div class="empty">пока пусто — добавь кличку (мворлд) и @/id</div>';
+      } else {
+        box.innerHTML = list.map(c => `
+          <article class="memory">
+            <div class="memory-top">
+              <span class="tag">${esc(c.nickname)}</span>
+              <span class="tag">${c.enabled ? 'вкл' : 'выкл'}</span>
+              <span class="tag">≤${esc(c.max_discuss_per_day)}/день</span>
+            </div>
+            <h3 style="font-size:12px;margin:6px 0">${esc(c.peer || c.title || '—')}</h3>
+            <p>${esc(c.notes || '')}</p>
+            <div class="memory-actions">
+              <button class="ghost" onclick="toggleChannel(${c.id},${c.enabled ? 0 : 1})">${c.enabled ? 'выкл' : 'вкл'}</button>
+              <button class="ghost" onclick="removeChannel(${c.id})">удалить</button>
+            </div>
+          </article>`).join('');
+      }
+      const pb = document.querySelector('#channel-posts');
+      if (pb) {
+        pb.innerHTML = (posts && posts.length)
+          ? posts.map(p => `<article class="event"><i class="event-mark"></i><div><b>${esc(p.nickname)}</b> · ${p.discussed ? 'обсудили' : 'тихо'} · score ${Number(p.score||0).toFixed(2)}<p>${esc((p.text||'медиа').slice(0,140))}</p>${p.yami_comment ? `<p style="color:var(--cyan)">ями: ${esc(p.yami_comment)}</p>` : ''}</div></article>`).join('')
+          : '<div class="empty">постов ещё нет (нужен watcher или тест ingest)</div>';
+      }
+    }
+
+    async function removeChannel(id) {
+      if (!confirm('Убрать канал из слежки?')) return;
+      await api('remove_channel', { channel_id: id });
+      toast('канал убран');
+      load();
+    }
+    async function toggleChannel(id, enabled) {
+      await api('toggle_channel', { channel_id: id, enabled: !!enabled });
+      load();
+    }
+
+    function fillModelSelects(m) {
+      if (!m) return;
+      const fill = (selId, presets, current) => {
+        const sel = document.querySelector(selId);
+        if (!sel) return;
+        const opts = [...new Set([...(presets || []), current].filter(Boolean))];
+        sel.innerHTML = opts.map(o =>
+          `<option value="${esc(o)}" ${o === current ? 'selected' : ''}>${esc(o)}</option>`
+        ).join('');
+      };
+      fill('#sel-text', m.presets_text, m.text);
+      fill('#sel-media', m.presets_media, m.media);
+      document.querySelector('#out-model-text').textContent = m.text || '—';
+      document.querySelector('#out-model-media').textContent = m.media || '—';
+      document.querySelector('#model-hint').textContent =
+        `текст: ${m.text || '—'} · vision: ${m.media || '—'} · smart: ${m.smart || '—'}`;
+    }
+
     function render(d) {
       document.querySelector('#mood').textContent = d.dynamics?.current_mood || 'neutral';
       document.querySelector('#reason').textContent =
@@ -164,6 +351,11 @@
       document.querySelector('#logCount').textContent = d.counts?.logs ?? '—';
       document.querySelector('#rawCount').textContent = d.counts?.unconsolidated ?? '—';
       document.querySelector('#mediaCount').textContent = d.counts?.media ?? '—';
+      const sleepEl = document.querySelector('#sleep-line');
+      if (sleepEl) sleepEl.textContent = d.sleeping ? 'сон: 😴 спит (proactive off)' : 'сон: бодрствует';
+      fillModelSelects(d.models);
+      renderChannels(d.channels || [], d.channel_posts || [], d.telethon_ready);
+      renderIntimacy(d.intimacy);
       document.querySelector('#meters').innerHTML = Object.entries(d.state || {}).map(([k, v]) =>
         `<article class="meter"><div class="meter-top"><span>${labels[k] || esc(k)}</span><b>${Math.round(v * 100)}%</b></div><div class="track"><div class="fill" style="width:${Math.round(v * 100)}%"></div></div></article>`
       ).join('');
@@ -238,18 +430,49 @@
     document.querySelectorAll('[data-action]').forEach(b => {
       b.onclick = async () => {
         const a = b.dataset.action;
-        if (a === 'full_wipe' && !confirm('Удалить всю память Ями? Это необратимо.')) return;
+        if ((a === 'full_wipe' || a === 'premiere') && !confirm('Hard wipe + анкета + 2 фото. Ок?')) return;
         b.disabled = true;
         try {
           const d = await api(a);
-          toast(d.message || 'Готово');
+          toast(d.message || d.used || 'Готово');
           if (API) await load();
         } catch (e) {
-          toast('Не удалось выполнить действие');
+          toast('Не удалось (нужен API / туннель)');
         } finally {
           b.disabled = false;
         }
       };
+    });
+
+    document.querySelector('#btn-add-channel')?.addEventListener('click', async () => {
+      const nickname = (document.querySelector('#ch-nick')?.value || '').trim();
+      const peer = (document.querySelector('#ch-peer')?.value || '').trim();
+      const notes = (document.querySelector('#ch-notes')?.value || '').trim();
+      const max_discuss_per_day = Number(document.querySelector('#ch-max')?.value || 4);
+      if (!nickname) { toast('нужна кличка'); return; }
+      try {
+        const d = await api('add_channel', { nickname, peer, notes, max_discuss_per_day });
+        toast(d.message || 'ok');
+        document.querySelector('#ch-nick').value = '';
+        document.querySelector('#ch-peer').value = '';
+        document.querySelector('#ch-notes').value = '';
+        await load();
+      } catch (e) {
+        toast('канал: нужен API');
+      }
+    });
+
+    document.querySelector('#btn-save-models')?.addEventListener('click', async () => {
+      const text = (document.querySelector('#custom-text').value || document.querySelector('#sel-text').value || '').trim();
+      const media = (document.querySelector('#custom-media').value || document.querySelector('#sel-media').value || '').trim();
+      try {
+        const d = await api('set_models', { text, media });
+        toast(d.message || 'модели ok');
+        fillModelSelects(d);
+        await load();
+      } catch (e) {
+        toast('модели: нужен API');
+      }
     });
 
     load();
