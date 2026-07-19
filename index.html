@@ -126,15 +126,15 @@
       </div>
       <div class="card">
         <h2 class="h">Зрение (только media)</h2>
-        <p class="muted" style="margin:0 0 10px">видео/фото/стикеры. full flash, не lite</p>
+        <p class="muted" style="margin:0 0 10px">видео/фото/стикеры</p>
         <div class="row" style="flex-direction:column">
           <button type="button" class="preset" id="vision-25" onclick="applyVision('gc/gemini-2.5-flash')">
             Gemini 2.5 Flash
             <small>стабильно, дешевле · текущий дефолт</small>
           </button>
-          <button type="button" class="preset" id="vision-3" onclick="applyVision('gc/gemini-3-flash')">
-            Gemini 3 Flash
-            <small>full 3-line · лучше эдиты/части · дороже</small>
+          <button type="button" class="preset" id="vision-3" onclick="applyVision('gc/gemini-3.1-flash-lite-preview')">
+            Gemini 3.1 Flash-Lite
+            <small>доступная 3.1 preview · быстрое зрение</small>
           </button>
         </div>
         <p class="muted" id="model-hint" style="margin:12px 0 0">—</p>
@@ -239,7 +239,7 @@
     // Vision-only switcher (keeps current text model)
     const VISION_PRESETS = [
       'gc/gemini-2.5-flash',
-      'gc/gemini-3-flash',
+      'gc/gemini-3.1-flash-lite-preview',
     ];
 
     function candidateApis() {
@@ -343,7 +343,7 @@
       );
       document.querySelector('#vision-3')?.classList.toggle(
         'on',
-        (med.includes('gemini-3-flash') || med.includes('gemini-3.1-flash')) && !med.includes('lite')
+        med.includes('gemini-3.1-flash-lite-preview')
       );
       if (m?.text || m?.media) setModelHint(m.text || '—', m.media || '—');
     }
