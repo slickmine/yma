@@ -111,16 +111,30 @@
     <!-- MODELS -->
     <section class="panel" id="panel-models">
       <div class="card">
-        <h2 class="h">Пресеты (один тап)</h2>
-        <p class="muted" style="margin:0 0 10px">сохраняется в базе бота, не в .env</p>
+        <h2 class="h">Стек чата</h2>
+        <p class="muted" style="margin:0 0 10px">сохраняется в базе, не в .env</p>
         <div class="row" style="flex-direction:column">
           <button type="button" class="preset" id="preset-hybrid" onclick="applyPreset('hybrid')">
             Дипсик + Гемини
-            <small>текст: am/deepseek-v4-flash · фото/видео: gc/gemini-2.5-flash</small>
+            <small>текст DeepSeek · зрение Gemini (ниже)</small>
           </button>
           <button type="button" class="preset" id="preset-gemini" onclick="applyPreset('gemini')">
             Full Гемини
-            <small>чат и зрение: gc/gemini-2.5-flash (мультимодальность)</small>
+            <small>и чат, и зрение на Gemini</small>
+          </button>
+        </div>
+      </div>
+      <div class="card">
+        <h2 class="h">Зрение (только media)</h2>
+        <p class="muted" style="margin:0 0 10px">видео/фото/стикеры. full flash, не lite</p>
+        <div class="row" style="flex-direction:column">
+          <button type="button" class="preset" id="vision-25" onclick="applyVision('gc/gemini-2.5-flash')">
+            Gemini 2.5 Flash
+            <small>стабильно, дешевле · текущий дефолт</small>
+          </button>
+          <button type="button" class="preset" id="vision-3" onclick="applyVision('gc/gemini-3-flash')">
+            Gemini 3 Flash
+            <small>full 3-line · лучше эдиты/части · дороже</small>
           </button>
         </div>
         <p class="muted" id="model-hint" style="margin:12px 0 0">—</p>
@@ -222,6 +236,11 @@
         smart: 'gc/gemini-2.5-flash',
       },
     };
+    // Vision-only switcher (keeps current text model)
+    const VISION_PRESETS = [
+      'gc/gemini-2.5-flash',
+      'gc/gemini-3-flash',
+    ];
 
     function candidateApis() {
       const list = [];
@@ -303,6 +322,14 @@
       };
     });
 
+    function setModelHint(textM, mediaM) {
+      const el = document.querySelector('#model-hint');
+      if (!el) return;
+      el.dataset.media = mediaM || '';
+      el.dataset.text = textM || '';
+      el.textContent = `текст: ${textM || '—'} · vision: ${mediaM || '—'}`;
+    }
+
     function markPreset(m) {
       const t = (m?.text || '').toLowerCase();
       const med = (m?.media || '').toLowerCase();
@@ -310,22 +337,48 @@
       const isFullG = t.includes('gemini') && med.includes('gemini') && !t.includes('deepseek');
       document.querySelector('#preset-hybrid')?.classList.toggle('on', !!isHybrid);
       document.querySelector('#preset-gemini')?.classList.toggle('on', !!isFullG);
+      document.querySelector('#vision-25')?.classList.toggle(
+        'on',
+        med.includes('2.5-flash') && !med.includes('lite')
+      );
+      document.querySelector('#vision-3')?.classList.toggle(
+        'on',
+        (med.includes('gemini-3-flash') || med.includes('gemini-3.1-flash')) && !med.includes('lite')
+      );
+      if (m?.text || m?.media) setModelHint(m.text || '—', m.media || '—');
     }
 
     async function applyPreset(name) {
       const p = PRESETS[name];
       if (!p) return;
       try {
-        const d = await api('set_models', { text: p.text, media: p.media, smart: p.smart });
+        // hybrid keeps current vision if already 2.5/3 full
+        let media = p.media;
+        if (name === 'hybrid') {
+          const cur = (document.querySelector('#model-hint')?.dataset?.media || '').trim();
+          if (VISION_PRESETS.includes(cur) || /gemini-3/.test(cur)) media = cur || p.media;
+        }
+        const d = await api('set_models', { text: p.text, media, smart: p.smart });
         toast(d.message || 'модели ok');
-        document.querySelector('#model-hint').textContent =
-          `текст: ${d.text || p.text} · vision: ${d.media || p.media}`;
+        setModelHint(d.text || p.text, d.media || media);
         markPreset(d);
       } catch (e) {
         toast('нужен API бота');
       }
     }
     window.applyPreset = applyPreset;
+
+    async function applyVision(mediaSlug) {
+      try {
+        const d = await api('set_models', { media: mediaSlug });
+        toast('зрение: ' + (d.media || mediaSlug));
+        setModelHint(d.text || '—', d.media || mediaSlug);
+        markPreset(d);
+      } catch (e) {
+        toast('нужен API бота');
+      }
+    }
+    window.applyVision = applyVision;
 
     function renderIntimacy(i) {
       const root = document.querySelector('#intimacy');
