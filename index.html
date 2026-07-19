@@ -235,8 +235,13 @@
         media: 'gc/gemini-2.5-flash',
         smart: 'gc/gemini-2.5-flash',
       },
+      gemini31: {
+        text: 'gc/gemini-3.1-flash-lite-preview',
+        media: 'gc/gemini-3.1-flash-lite-preview',
+        smart: 'gc/gemini-3.1-flash-lite-preview',
+      },
     };
-    // Vision-only switcher (keeps current text model)
+    // Kept only for compatibility with older cached Mini App code.
     const VISION_PRESETS = [
       'gc/gemini-2.5-flash',
       'gc/gemini-3.1-flash-lite-preview',
@@ -333,10 +338,15 @@
     function markPreset(m) {
       const t = (m?.text || '').toLowerCase();
       const med = (m?.media || '').toLowerCase();
-      const isHybrid = t.includes('deepseek') && med.includes('gemini');
+      const active = (m?.active || t || med).toLowerCase();
+      const isHybrid = false;
       const isFullG = t.includes('gemini') && med.includes('gemini') && !t.includes('deepseek');
       document.querySelector('#preset-hybrid')?.classList.toggle('on', !!isHybrid);
       document.querySelector('#preset-gemini')?.classList.toggle('on', !!isFullG);
+      document.querySelector('#preset-gemini31')?.classList.toggle(
+        'on',
+        active.includes('gemini-3.1-flash-lite-preview')
+      );
       document.querySelector('#vision-25')?.classList.toggle(
         'on',
         med.includes('2.5-flash') && !med.includes('lite')
@@ -358,7 +368,7 @@
           const cur = (document.querySelector('#model-hint')?.dataset?.media || '').trim();
           if (VISION_PRESETS.includes(cur) || /gemini-3/.test(cur)) media = cur || p.media;
         }
-        const d = await api('set_models', { text: p.text, media, smart: p.smart });
+        const d = await api('set_models', { active: p.text, text: p.text, media: p.text, smart: p.smart });
         toast(d.message || 'модели ok');
         setModelHint(d.text || p.text, d.media || media);
         markPreset(d);
@@ -367,6 +377,30 @@
       }
     }
     window.applyPreset = applyPreset;
+
+    // Unified model mode: one selected Gemini handles text, media and background analysis.
+    function installUnifiedModelUi() {
+      const hybrid = document.querySelector('#preset-hybrid');
+      const gemini25 = document.querySelector('#preset-gemini');
+      if (hybrid) hybrid.style.display = 'none';
+      if (gemini25) {
+        gemini25.innerHTML = 'Gemini 2.5 Flash (полный)<small>текст + фото + видео + стикеры</small>';
+        gemini25.onclick = () => applyPreset('gemini');
+      }
+      const parent = gemini25?.parentElement;
+      if (parent && !document.querySelector('#preset-gemini31')) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'preset';
+        button.id = 'preset-gemini31';
+        button.innerHTML = 'Gemini 3.1 Flash-Lite (полный)<small>текст + фото + видео + стикеры</small>';
+        button.onclick = () => applyPreset('gemini31');
+        parent.appendChild(button);
+      }
+      const visionCard = document.querySelector('#vision-25')?.closest('.card');
+      if (visionCard) visionCard.style.display = 'none';
+    }
+    installUnifiedModelUi();
 
     async function applyVision(mediaSlug) {
       try {
