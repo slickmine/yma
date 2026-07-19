@@ -38,8 +38,10 @@
     button.primary{background:linear-gradient(110deg,rgba(88,232,255,.16),rgba(159,124,255,.18));border-color:rgba(88,232,255,.28)}
     button.danger{color:#ff7ba9}
     button.ghost{background:transparent;color:var(--muted);flex:0;min-width:0;padding:6px 8px;font-size:11px;border:0}
-    button.preset{text-align:left;padding:12px 14px}
-    button.preset.on{border-color:rgba(88,232,255,.45);background:rgba(88,232,255,.12)}
+    button.preset{text-align:left;padding:13px 14px;position:relative;border-color:rgba(255,255,255,.10);transition:.18s ease}
+    button.preset:hover{transform:translateY(-1px);border-color:rgba(88,232,255,.35);background:rgba(88,232,255,.06)}
+    button.preset.on{border-color:var(--cyan);background:linear-gradient(120deg,rgba(88,232,255,.18),rgba(159,124,255,.14));box-shadow:0 0 0 1px rgba(88,232,255,.14),0 8px 24px rgba(0,0,0,.18)}
+    button.preset.on::after{content:'✓ выбрано';position:absolute;right:12px;top:11px;color:var(--ok);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
     button.preset small{display:block;color:var(--muted);font-weight:500;margin-top:4px;font-size:11px}
     .list{display:grid;gap:8px}
     .item{padding:11px 12px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.025)}
@@ -52,6 +54,9 @@
     .toast.show{opacity:1;transform:translate(-50%,0)}
     .empty{color:var(--muted);padding:14px;text-align:center;font-size:12px}
     .lvl{font-size:28px;font-weight:900;background:linear-gradient(120deg,var(--pink),var(--violet),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
+    #panel-models .card:first-child{background:linear-gradient(145deg,rgba(24,29,45,.96),rgba(17,19,30,.92));border-color:rgba(88,232,255,.16);box-shadow:0 12px 34px rgba(0,0,0,.16)}
+    #panel-models .card:first-child .h{font-size:15px;letter-spacing:.01em}
+    #model-hint{padding:9px 11px;border-radius:10px;background:rgba(255,255,255,.035);border:1px solid var(--line);font-size:11px}
   </style>
 </head>
 <body>
@@ -332,6 +337,7 @@
       if (!el) return;
       el.dataset.media = mediaM || '';
       el.dataset.text = textM || '';
+      el.textContent = `active model: ${textM || mediaM || '—'}`;
       el.textContent = `текст: ${textM || '—'} · vision: ${mediaM || '—'}`;
     }
 
@@ -340,12 +346,13 @@
       const med = (m?.media || '').toLowerCase();
       const active = (m?.active || t || med).toLowerCase();
       const isHybrid = false;
-      const isFullG = t.includes('gemini') && med.includes('gemini') && !t.includes('deepseek');
+      const is25 = active.includes('gemini-2.5-flash') && !active.includes('lite');
+      const is31 = active.includes('gemini-3.1-flash-lite-preview');
       document.querySelector('#preset-hybrid')?.classList.toggle('on', !!isHybrid);
-      document.querySelector('#preset-gemini')?.classList.toggle('on', !!isFullG);
+      document.querySelector('#preset-gemini')?.classList.toggle('on', !!is25);
       document.querySelector('#preset-gemini31')?.classList.toggle(
         'on',
-        active.includes('gemini-3.1-flash-lite-preview')
+        !!is31
       );
       document.querySelector('#vision-25')?.classList.toggle(
         'on',
@@ -486,6 +493,8 @@
       document.querySelector('#model-hint').textContent =
         d.models ? `текст: ${d.models.text} · vision: ${d.models.media}` : '—';
       markPreset(d.models);
+      if (d.models) document.querySelector('#model-hint').textContent =
+        `active model: ${d.models.active || d.models.text || d.models.media || '—'}`;
       renderChannels(d.channels || [], d.channel_posts || [], d.telethon_ready);
       renderIntimacy(d.intimacy);
 
